@@ -6,7 +6,7 @@ import okhttp3.Request
 import okhttp3.RequestBody
 
 class HTTPHandler {
-    fun getlanguages(url:String)
+    fun getLanguages(url:String)
     {
         val client = OkHttpClient()
         val request = Request.Builder()
@@ -19,11 +19,12 @@ class HTTPHandler {
         val response = client.newCall(request).execute()
     }
 
-    fun posttranslate(url: String){
+    fun postTranslate(url: String, bodyParse: String){
         val client = OkHttpClient()
 
         val mediaType = MediaType.parse("application/x-www-form-urlencoded")
-        val body = RequestBody.create(mediaType, "q=Hello%2C%20world!&source=en&target=es")
+        val body = RequestBody.create(mediaType, bodyParse)
+//        q=Hello%2C%20world!&source=en&target=es
         val request = Request.Builder()
                 .url(url)
                 .post(body)
@@ -36,13 +37,14 @@ class HTTPHandler {
         val response = client.newCall(request).execute()
     }
 
-    fun postdetect(url: String){
+    fun postDetect(url: String, bodyParse: String){
         val client = OkHttpClient()
 
         val mediaType = MediaType.parse("application/x-www-form-urlencoded")
-        val body = RequestBody.create(mediaType, "q=English%20is%20hard%2C%20but%20detectably%20so")
+        val body = RequestBody.create(mediaType, bodyParse)
+//        q=English%20is%20hard%2C%20but%20detectably%20so
         val request = Request.Builder()
-                .url("url")
+                .url(url)
                 .post(body)
                 .addHeader("content-type", "application/x-www-form-urlencoded")
                 .addHeader("accept-encoding", "application/gzip")

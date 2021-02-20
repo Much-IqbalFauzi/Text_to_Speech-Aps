@@ -12,6 +12,8 @@ class DetailTranslate : AppCompatActivity(), View.OnClickListener {
 
         val back: Button = findViewById(R.id.detail_back)
         back.setOnClickListener(this)
+
+
     }
 
     override fun onClick(v: View?) {

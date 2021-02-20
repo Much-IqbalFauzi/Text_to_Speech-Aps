@@ -13,6 +13,8 @@ class MainActivity : Activity(), View.OnClickListener {
 
         val translate: Button = findViewById(R.id.main_translate_action)
         translate.setOnClickListener(this)
+
+        
     }
 
     override fun onClick(v: View?) {
