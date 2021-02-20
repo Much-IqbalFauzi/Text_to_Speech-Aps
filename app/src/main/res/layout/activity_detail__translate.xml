@@ -58,6 +58,7 @@
                     android:src="@drawable/ic_volume"
                     android:paddingLeft="@dimen/space_10"/>
                 <TextView
+                    android:id="@+id/detail_from_lang"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="textEnd"
@@ -66,6 +67,7 @@
                     android:textStyle="bold"/>
             </LinearLayout>
             <TextView
+                android:id="@+id/detail_from_text"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_100"
                 android:padding="@dimen/space_10"
@@ -89,6 +91,7 @@
                     android:src="@drawable/ic_volume"
                     android:paddingLeft="@dimen/space_10"/>
                 <TextView
+                    android:id="@+id/detail_target_lang"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="textEnd"
@@ -97,6 +100,7 @@
                     android:textStyle="bold"/>
             </LinearLayout>
             <TextView
+                android:id="@+id/detail_target_text"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_100"
                 android:padding="@dimen/space_10"
