@@ -1,6 +1,6 @@
 package com.midtest.texttospeech.httpHandler
 
-class url{
+class Url{
     fun lang(): String {
         return "https://google-translate1.p.rapidapi.com/language/translate/v2/languages"
     }

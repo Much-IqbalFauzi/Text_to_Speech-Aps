@@ -74,6 +74,7 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(context, DATABASE_NAME
         }
         return empTranslate
     }
+
     fun deleteContact(TranslateId: Int): Int {
         val db = this.writableDatabase
         val contentValues = ContentValues()
