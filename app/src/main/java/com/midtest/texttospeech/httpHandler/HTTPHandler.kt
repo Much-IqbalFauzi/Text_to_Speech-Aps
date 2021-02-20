@@ -26,11 +26,9 @@ class HTTPHandler {
                 println(body)
 
                 val gson = GsonBuilder().create()
+                val dataList = gson.fromJson(body, Language::class.java)
+                println("==============================================================="+dataList.data.languages.size)
 
-                val lang = gson.fromJson(body, Language::class.java)
-                println(lang)
-                val dataList = lang.languages.data
-                println(dataList)
             }
         })
     }
