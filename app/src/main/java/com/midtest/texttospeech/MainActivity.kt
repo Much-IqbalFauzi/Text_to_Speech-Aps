@@ -7,9 +7,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.GridView
-import com.midtest.texttospeech.databaseHandler.DatabaseHandler
 import com.midtest.texttospeech.httpHandler.HTTPHandler
-import com.midtest.texttospeech.httpHandler.url
+import com.midtest.texttospeech.httpHandler.Url
 import com.midtest.texttospeech.itemAdapter.HistoryItemAdapter
 
 class MainActivity : Activity(), View.OnClickListener {
@@ -24,6 +23,9 @@ class MainActivity : Activity(), View.OnClickListener {
         val gridHistory: GridView = findViewById(R.id.main_history)
         val historyAdapter = HistoryItemAdapter(this)
         gridHistory.adapter = historyAdapter
+
+        val httpHandler = HTTPHandler()
+        httpHandler.getLanguages()
 
     }
 

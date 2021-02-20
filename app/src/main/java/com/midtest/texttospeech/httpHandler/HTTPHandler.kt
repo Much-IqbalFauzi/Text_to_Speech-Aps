@@ -1,22 +1,38 @@
 package com.midtest.texttospeech.httpHandler
 
-import okhttp3.MediaType
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody
+import com.google.gson.GsonBuilder
+import com.midtest.texttospeech.model.Language
+import okhttp3.*
+import java.io.IOException
 
 class HTTPHandler {
-    fun getLanguages(url:String)
+    fun getLanguages()
     {
         val client = OkHttpClient()
         val request = Request.Builder()
-                .url(url)
-                .get()
-                .addHeader("accept-encoding", "application/gzip")
-                .addHeader("x-rapidapi-key", "SIGN-UP-FOR-KEY")
-                .addHeader("x-rapidapi-host", "google-translate1.p.rapidapi.com")
-                .build()
-        val response = client.newCall(request).execute()
+            .url("https://google-translate1.p.rapidapi.com/language/translate/v2/languages")
+            .get()
+            .addHeader("accept-encoding", "application/gzip")
+            .addHeader("x-rapidapi-key", "296aa00a8amsh7ca281fb38b28fcp1f842ajsna0c578fe3ad5")
+            .addHeader("x-rapidapi-host", "google-translate1.p.rapidapi.com")
+            .build()
+        client.newCall(request).enqueue(object: Callback{
+            override fun onFailure(call: Call, e: IOException) {
+                println("Fail to requeset")
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body()?.string()
+                println(body)
+
+                val gson = GsonBuilder().create()
+
+                val lang = gson.fromJson(body, Language::class.java)
+                println(lang)
+                val dataList = lang.languages.data
+                println(dataList)
+            }
+        })
     }
 
     fun postTranslate(url: String, bodyParse: String){
