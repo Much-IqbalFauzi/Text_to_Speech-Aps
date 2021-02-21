@@ -2,7 +2,6 @@ package com.midtest.texttospeech
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.view.View
@@ -12,8 +11,6 @@ import com.google.gson.GsonBuilder
 import com.midtest.texttospeech.databaseHandler.DatabaseHandler
 import com.midtest.texttospeech.model.Translated
 import okhttp3.*
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.util.*
 
@@ -51,11 +48,26 @@ class DetailTranslate : Activity(), View.OnClickListener, TextToSpeech.OnInitLis
         viewTarget.text = langTarget
         viewTextFrom.text = text
 
-        posttranslate(langFrom.toString(), langTarget.toString(), text.toString())
+        val arre = text?.split(" ")
+        if(arre?.size!! > 1){
+            var all: String = ""
+            for(i in 0..arre?.size-1) {
+                if (i < arre?.size-1) {
+                    all += arre[i]+"%20"
+                } else {
+                    all += arre[i]
+                }
+            }
+            posttranslate(langFrom.toString(), langTarget.toString(), all)
+        } else {
+            posttranslate(langFrom.toString(), langTarget.toString(), text.toString())
+        }
+    }
 
-
-
-
+    override fun onBackPressed() {
+        super.onBackPressed()
+        autoSave()
+        startActivity(Intent(this@DetailTranslate, MainActivity::class.java))
     }
 
     override fun onClick(v: View?) {
@@ -114,13 +126,11 @@ class DetailTranslate : Activity(), View.OnClickListener, TextToSpeech.OnInitLis
 
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body()?.string()
-                println(body)
 
                 val gson = GsonBuilder().create()
                 val res = gson.fromJson(body, Translated::class.java)
 
                 this@DetailTranslate.runOnUiThread {
-                    println("            ==============  "+res.responseData.translatedText)
                     setResult(res.responseData.translatedText)
 
                 }

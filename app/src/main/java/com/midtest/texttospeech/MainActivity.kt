@@ -1,24 +1,34 @@
 package com.midtest.texttospeech
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.gson.GsonBuilder
-import com.midtest.texttospeech.httpHandler.HTTPHandler
+import com.midtest.texttospeech.databaseHandler.DatabaseHandler
 import com.midtest.texttospeech.itemAdapter.HistoryItemAdapter
+import com.midtest.texttospeech.model.History
 import com.midtest.texttospeech.model.Language
 import okhttp3.*
-import retrofit2.http.HTTP
 import java.io.IOException
 
-class MainActivity : Activity(), View.OnClickListener {
+class MainActivity : Activity(), View.OnClickListener, AdapterView.OnItemLongClickListener {
+
+    lateinit var dialog: Dialog
+
+    lateinit var dataBaseHandle: DatabaseHandler
+
+    lateinit var dataSelected: History
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        dataBaseHandle = DatabaseHandler(this)
 
         val translate: Button = findViewById(R.id.main_translate_action)
         translate.setOnClickListener(this)
@@ -32,9 +42,27 @@ class MainActivity : Activity(), View.OnClickListener {
 
         getLanguages()
 
-        val req: DetailTranslate = DetailTranslate()
-//        req.posttranslate("id","en","Makanan")
+        val gridView: GridView = findViewById(R.id.main_history)
+        gridView.setOnItemLongClickListener(this)
+
+        dialog = Dialog(this)
+
     }
+
+    override fun onItemLongClick(parent: AdapterView<*>?, p1: View?, index: Int, id: Long): Boolean {
+        dataSelected = parent?.getItemAtPosition(index) as History
+        dialog.setContentView(R.layout.dialog_trash)
+        dialog.window!!.setBackgroundDrawable(getDrawable(R.drawable.dialong_bg))
+        dialog.window!!.setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        val dialogCancel: Button = dialog.findViewById(R.id.main_cancel_delete)
+        val dialogDeleteData: Button = dialog.findViewById(R.id.main_delete_data)
+        dialogCancel.setOnClickListener(this)
+        dialogDeleteData.setOnClickListener(this)
+        dialog.show()
+
+        return true
+    }
+
 
     override fun onClick(v: View?) {
         when(v?.id) {
@@ -55,6 +83,12 @@ class MainActivity : Activity(), View.OnClickListener {
                 val index = spinnerTarget.selectedItemPosition
                 spinnerTarget.setSelection(spinerFrom.selectedItemPosition-1)
                 spinerFrom.setSelection(index+1)
+            }
+            R.id.main_cancel_delete -> dialog.dismiss()
+            R.id.main_delete_data -> {
+                dataBaseHandle.delete(dataSelected.id)
+                dialog.dismiss()
+                startActivity(Intent(this@MainActivity, MainActivity::class.java))
             }
         }
     }
@@ -103,7 +137,6 @@ class MainActivity : Activity(), View.OnClickListener {
 
             override fun onResponse(call: Call, response: Response) {
                 val body = response.body()?.string()
-                println(body)
 
                 val gson = GsonBuilder().create()
                 val data = gson.fromJson(body, Language::class.java)
@@ -115,4 +148,8 @@ class MainActivity : Activity(), View.OnClickListener {
         })
     }
 
+
+
 }
+
+

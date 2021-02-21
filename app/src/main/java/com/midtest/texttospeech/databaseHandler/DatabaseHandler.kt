@@ -78,12 +78,12 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(context, DATABASE_NAME
         return empTranslate
     }
 
-    fun deleteContact(TranslateId: Int): Int {
+    fun delete(TranslateId: Int): Int {
         val db = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put(key_id, TranslateId)
         val success = db.delete(TABLE_NAME, "_id="+TranslateId, null)
         db.close()
-        return  success
+        return success
     }
 }

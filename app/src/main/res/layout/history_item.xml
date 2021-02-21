@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/rounded_white"
-    android:padding="@dimen/space_10">
+    android:padding="@dimen/space_5"
+    android:elevation="@dimen/space_4">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,7 +16,7 @@
             android:id="@+id/history_item_from"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_16"
+            android:textSize="@dimen/text_20"
             android:textColor="@color/nyctophile"/>
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,8 +24,8 @@
             android:gravity="center"
             android:orientation="horizontal">
             <ImageView
-                android:layout_width="@dimen/size_50"
-                android:layout_height="@dimen/size_50"
+                android:layout_width="@dimen/space_24"
+                android:layout_height="@dimen/space_24"
                 android:src="@drawable/ic_to_down"
                 android:paddingLeft="@dimen/space_10"/>
             <TextView
@@ -33,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/nyctophile"
                 android:layout_marginLeft="@dimen/space_10"
-                android:textSize="@dimen/text_16"/>
+                android:textSize="@dimen/text_20"/>
         </LinearLayout>
     </LinearLayout>
     <ImageView

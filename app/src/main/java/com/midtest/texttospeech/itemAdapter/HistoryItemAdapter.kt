@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.ListView
 import android.widget.TextView
 import com.midtest.texttospeech.R
 import com.midtest.texttospeech.databaseHandler.DatabaseHandler
@@ -26,8 +27,9 @@ class HistoryItemAdapter(context: Context): BaseAdapter() {
         val fromLang: TextView = convertView.findViewById(R.id.history_item_from)
         val targetLang: TextView = convertView.findViewById(R.id.history_item_result)
 
-        fromLang.text = allData.get(position).bahasa
-        targetLang.text = allData.get(position).bahasatujuan
+        fromLang.text = allData.get(position).kalimat
+        targetLang.text = allData.get(position).kalimathasil
+
 
         return convertView
     }
