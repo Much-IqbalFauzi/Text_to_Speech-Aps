@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -16,16 +16,17 @@
             android:id="@+id/history_item_from"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_20"
-            android:textColor="@color/nyctophile"/>
+            android:textSize="@dimen/text_16"
+            android:textColor="@color/nyctophile"
+            android:paddingLeft="@dimen/space_10"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal">
             <ImageView
-                android:layout_width="@dimen/space_24"
-                android:layout_height="@dimen/space_24"
+                android:layout_width="@dimen/text_32"
+                android:layout_height="@dimen/text_32"
                 android:src="@drawable/ic_to_down"
                 android:paddingLeft="@dimen/space_10"/>
             <TextView
@@ -34,12 +35,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/nyctophile"
                 android:layout_marginLeft="@dimen/space_10"
-                android:textSize="@dimen/text_20"/>
+                android:textSize="@dimen/text_16"/>
         </LinearLayout>
     </LinearLayout>
-    <ImageView
-        android:layout_width="@dimen/size_80"
-        android:layout_height="@dimen/size_80"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/ic_right"/>
-</RelativeLayout>
+</LinearLayout>

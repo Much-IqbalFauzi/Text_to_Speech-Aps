@@ -27,8 +27,8 @@ class HistoryItemAdapter(context: Context): BaseAdapter() {
         val fromLang: TextView = convertView.findViewById(R.id.history_item_from)
         val targetLang: TextView = convertView.findViewById(R.id.history_item_result)
 
-        fromLang.text = allData.get(position).kalimat
-        targetLang.text = allData.get(position).kalimathasil
+        fromLang.text = allData.get(position).bahasa+": "+allData.get(position).kalimat
+        targetLang.text = allData.get(position).bahasatujuan+": "+allData.get(position).kalimathasil
 
 
         return convertView

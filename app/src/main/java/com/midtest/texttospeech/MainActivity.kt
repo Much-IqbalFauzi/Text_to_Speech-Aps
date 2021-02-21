@@ -89,6 +89,7 @@ class MainActivity : Activity(), View.OnClickListener, AdapterView.OnItemLongCli
                 dataBaseHandle.delete(dataSelected.id)
                 dialog.dismiss()
                 startActivity(Intent(this@MainActivity, MainActivity::class.java))
+                finish()
             }
         }
     }
