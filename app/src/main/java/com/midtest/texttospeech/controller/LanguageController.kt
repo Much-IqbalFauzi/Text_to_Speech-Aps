@@ -1,9 +1,9 @@
 package com.midtest.texttospeech.controller
 
 class LanguageController {
-    var allData: ArrayList<String> = ArrayList<String>()
+    var allData = mutableListOf("Choose")
 
-    fun getAll(): ArrayList<String> {
+    fun getAll(): List<String> {
         return allData
     }
 

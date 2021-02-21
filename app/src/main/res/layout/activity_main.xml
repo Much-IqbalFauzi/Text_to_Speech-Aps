@@ -7,6 +7,7 @@
     android:orientation="vertical"
     android:background="@color/snowbelt"
     android:padding="@dimen/space_24"
+    android:focusableInTouchMode="true"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -39,18 +40,19 @@
         android:orientation="horizontal">
         <Spinner
             android:id="@+id/main_spinner_langfrom"
-            android:layout_width="@dimen/size_110"
+            android:layout_width="@dimen/size_100"
             android:layout_height="wrap_content"
             android:background="@drawable/spinner_selector"/>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/main_swap_lang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_swap"
-            android:layout_marginHorizontal="@dimen/space_24"
+            android:layout_marginHorizontal="@dimen/space_12"
             android:backgroundTint="@color/frozen"/>
         <Spinner
             android:id="@+id/main_spinner_langto"
-            android:layout_width="@dimen/size_110"
+            android:layout_width="@dimen/size_100"
             android:layout_height="wrap_content"
             android:background="@drawable/spinner_selector"/>
     </LinearLayout>
@@ -66,6 +68,7 @@
             android:padding="@dimen/space_10"
             android:background="@drawable/rounded_white"
             android:textSize="@dimen/text_16"
+
             android:inputType="textMultiLine"
             android:scrollbars="vertical"
             android:textColor="@color/nyctophile"
@@ -77,16 +80,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_16"
-            android:padding="@dimen/space_5"
+            android:paddingVertical="@dimen/space_5"
+            android:paddingHorizontal="@dimen/space_24"
             android:background="@drawable/rounded_dark"
             android:textColor="@color/white"
             android:text="Translate"/>
     </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_24"
+        android:textSize="@dimen/text_16"
+        android:textColor="@color/nyctophile"
+        android:text="History:"/>
     <GridView
         android:id="@+id/main_history"
-        android:layout_marginTop="@dimen/space_24"
+        android:layout_marginTop="@dimen/space_12"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:imeOptions="flagNoExtractUi"
         android:padding="@dimen/space_10"
         android:numColumns="1"
         android:verticalSpacing="@dimen/space_10"

@@ -1,13 +1,19 @@
 package com.midtest.texttospeech.httpHandler
 
+import android.content.Context
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import android.widget.Toast
+import androidx.annotation.UiThread
 import com.google.gson.GsonBuilder
+import com.midtest.texttospeech.R
+import com.midtest.texttospeech.controller.LanguageController
 import com.midtest.texttospeech.model.Language
 import okhttp3.*
 import java.io.IOException
 
 class HTTPHandler {
-    fun getLanguages()
-    {
+    fun getLanguages(context: Context): Unit{
         val client = OkHttpClient()
         val request = Request.Builder()
             .url("https://google-translate1.p.rapidapi.com/language/translate/v2/languages")
@@ -16,7 +22,7 @@ class HTTPHandler {
             .addHeader("x-rapidapi-key", "296aa00a8amsh7ca281fb38b28fcp1f842ajsna0c578fe3ad5")
             .addHeader("x-rapidapi-host", "google-translate1.p.rapidapi.com")
             .build()
-        client.newCall(request).enqueue(object: Callback{
+        val all = client.newCall(request).enqueue(object: Callback{
             override fun onFailure(call: Call, e: IOException) {
                 println("Fail to requeset")
             }
@@ -26,8 +32,15 @@ class HTTPHandler {
                 println(body)
 
                 val gson = GsonBuilder().create()
-                val dataList = gson.fromJson(body, Language::class.java)
-                println("==============================================================="+dataList.data.languages.size)
+                val data = gson.fromJson(body, Language::class.java)
+                println("==============================================================="+data.data.languages[1].language.toString())
+                val langController: LanguageController = LanguageController()
+                for (i in data.data.languages) {
+                    langController.addLang(i.language.toString())
+                    println(i.language.toString())
+                }
+
+
 
             }
         })

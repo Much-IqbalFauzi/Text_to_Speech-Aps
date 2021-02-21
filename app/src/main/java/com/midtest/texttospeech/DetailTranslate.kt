@@ -1,5 +1,6 @@
 package com.midtest.texttospeech
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,7 +9,7 @@ import android.widget.Button
 import android.widget.TextView
 import com.midtest.texttospeech.databaseHandler.DatabaseHandler
 
-class DetailTranslate : AppCompatActivity(), View.OnClickListener {
+class DetailTranslate : Activity(), View.OnClickListener {
 
     lateinit var databaseHandler: DatabaseHandler
     override fun onCreate(savedInstanceState: Bundle?) {
