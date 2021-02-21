@@ -8,7 +8,13 @@ import android.speech.tts.TextToSpeech
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import com.google.gson.GsonBuilder
 import com.midtest.texttospeech.databaseHandler.DatabaseHandler
+import com.midtest.texttospeech.model.Translated
+import okhttp3.*
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.io.IOException
 import java.util.*
 
 class DetailTranslate : Activity(), View.OnClickListener, TextToSpeech.OnInitListener {
@@ -33,11 +39,31 @@ class DetailTranslate : Activity(), View.OnClickListener, TextToSpeech.OnInitLis
 
         databaseHandler = DatabaseHandler(this)
 
+        val langFrom = intent.getStringExtra("spinnerFrom")
+        val langTarget = intent.getStringExtra("spinnerTarget")
+        val text = intent.getStringExtra("teks")
+
+        val viewFrom: TextView = findViewById(R.id.detail_from_lang)
+        val viewTarget: TextView = findViewById(R.id.detail_target_lang)
+        val viewTextFrom: TextView = findViewById(R.id.detail_from_text)
+
+        viewFrom.text = langFrom
+        viewTarget.text = langTarget
+        viewTextFrom.text = text
+
+        posttranslate(langFrom.toString(), langTarget.toString(), text.toString())
+
+
+
+
     }
 
     override fun onClick(v: View?) {
         when(v?.id) {
-            R.id.detail_back -> startActivity(Intent(this@DetailTranslate, MainActivity::class.java))
+            R.id.detail_back -> {
+                autoSave()
+                startActivity(Intent(this@DetailTranslate, MainActivity::class.java))
+            }
             R.id.detail_from_speak -> {
                 val text: TextView = findViewById(R.id.detail_from_text)
                 tts.speak(text.text.toString(), TextToSpeech.QUEUE_FLUSH, null, null)
@@ -65,6 +91,43 @@ class DetailTranslate : Activity(), View.OnClickListener, TextToSpeech.OnInitLis
             tts.stop()
             tts.shutdown()
         }
+    }
+
+    fun setResult(trans: String) {
+        val viewTextTarget: TextView = findViewById(R.id.detail_target_text)
+        viewTextTarget.text = trans
+    }
+
+    fun posttranslate(source: String, target: String, teks: String) {
+        val client = OkHttpClient()
+
+        val request = Request.Builder()
+            .url("https://translated-mymemory---translation-memory.p.rapidapi.com/api/get?langpair=$source%7C$target&q=$teks")
+            .get()
+            .addHeader("x-rapidapi-key", "59a25d5c87mshe5c5a3698d75ab3p19d513jsnfc4f0c3af1dd")
+            .addHeader("x-rapidapi-host", "translated-mymemory---translation-memory.p.rapidapi.com")
+            .build()
+        client.newCall(request).enqueue(object: Callback{
+            override fun onFailure(call: Call, e: IOException) {
+                println("Fauilllll")
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body()?.string()
+                println(body)
+
+                val gson = GsonBuilder().create()
+                val res = gson.fromJson(body, Translated::class.java)
+
+                this@DetailTranslate.runOnUiThread {
+                    println("            ==============  "+res.responseData.translatedText)
+                    setResult(res.responseData.translatedText)
+
+                }
+
+            }
+
+        })
     }
 
     fun autoSave() {

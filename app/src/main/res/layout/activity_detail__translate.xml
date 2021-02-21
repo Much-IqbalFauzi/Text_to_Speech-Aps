@@ -75,8 +75,7 @@
                 android:textColor="@color/nyctophile"
                 android:padding="@dimen/space_10"
                 android:background="@drawable/rounded_white"
-                android:gravity="top|left"
-                android:text="Lorizzle Ipsum"/>
+                android:gravity="top|left"/>
         </LinearLayout>
         <LinearLayout
             android:layout_marginTop="@dimen/space_24"
@@ -111,8 +110,7 @@
                 android:textColor="@color/nyctophile"
                 android:padding="@dimen/space_10"
                 android:background="@drawable/rounded_white"
-                android:gravity="top|left"
-                android:text="Lorizzle Ipsum"/>
+                android:gravity="top|left"/>
         </LinearLayout>
         
     </LinearLayout>

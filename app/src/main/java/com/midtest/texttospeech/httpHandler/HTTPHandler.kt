@@ -61,10 +61,68 @@ class HTTPHandler {
                 .addHeader("x-rapidapi-host", "google-translate1.p.rapidapi.com")
                 .build()
 
-        val response = client.newCall(request).execute()
+        client.newCall(request).enqueue(object: Callback{
+            override fun onFailure(call: Call, e: IOException) {
+                println("Fauilllll")
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body()?.string()
+                println("======================================="+body)
+            }
+
+        })
     }
 
-    fun postDetect(url: String, bodyParse: String){
+    fun yay() {
+        val client = OkHttpClient()
+
+        val request = Request.Builder()
+            .url("https://translated-mymemory---translation-memory.p.rapidapi.com/api/get?langpair=en%7Cit&q=Hello%20World!&mt=1&onlyprivate=0&de=a%40b.c")
+            .get()
+            .addHeader("x-rapidapi-key", "59a25d5c87mshe5c5a3698d75ab3p19d513jsnfc4f0c3af1dd")
+            .addHeader("x-rapidapi-host", "translated-mymemory---translation-memory.p.rapidapi.com")
+            .build()
+        client.newCall(request).enqueue(object: Callback{
+            override fun onFailure(call: Call, e: IOException) {
+                println("Fauilllll")
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body()?.string()
+                println(body)
+            }
+
+        })
+    }
+
+    fun yoks() {
+        val client = OkHttpClient()
+
+        val mediaType = MediaType.parse("application/x-www-form-urlencoded")
+        val body = RequestBody.create(mediaType, "q=kawaii%20imouto")
+        val request = Request.Builder()
+            .url("https://google-translate1.p.rapidapi.com/language/translate/v2/detect")
+            .post(body)
+            .addHeader("content-type", "application/x-www-form-urlencoded")
+            .addHeader("x-rapidapi-key", "59a25d5c87mshe5c5a3698d75ab3p19d513jsnfc4f0c3af1dd")
+            .addHeader("x-rapidapi-host", "google-translate1.p.rapidapi.com")
+            .build()
+
+        client.newCall(request).enqueue(object: Callback{
+            override fun onFailure(call: Call, e: IOException) {
+                println("Fauilllll")
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body()?.string()
+                println("======================================="+body)
+            }
+
+        })
+    }
+
+    /*fun postDetect(url: String, bodyParse: String){
         val client = OkHttpClient()
 
         val mediaType = MediaType.parse("application/x-www-form-urlencoded")
@@ -80,5 +138,5 @@ class HTTPHandler {
                 .build()
 
         val response = client.newCall(request).execute()
-    }
+    }*/
 }

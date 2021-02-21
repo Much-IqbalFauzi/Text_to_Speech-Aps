@@ -7,9 +7,11 @@ import android.view.View
 import android.widget.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.gson.GsonBuilder
+import com.midtest.texttospeech.httpHandler.HTTPHandler
 import com.midtest.texttospeech.itemAdapter.HistoryItemAdapter
 import com.midtest.texttospeech.model.Language
 import okhttp3.*
+import retrofit2.http.HTTP
 import java.io.IOException
 
 class MainActivity : Activity(), View.OnClickListener {
@@ -30,12 +32,22 @@ class MainActivity : Activity(), View.OnClickListener {
 
         getLanguages()
 
-
+        val req: DetailTranslate = DetailTranslate()
+//        req.posttranslate("id","en","Makanan")
     }
 
     override fun onClick(v: View?) {
         when(v?.id) {
-            R.id.main_translate_action -> startActivity(Intent(this@MainActivity, DetailTranslate::class.java))
+            R.id.main_translate_action -> {
+                val intent: Intent = Intent(this@MainActivity, DetailTranslate::class.java)
+                val spinnerFrom = GetSpinnerFrom()
+                val spinnerTarget = GetSpinnerTarget()
+                val text: EditText = findViewById(R.id.main_input)
+                intent.putExtra("spinnerFrom", spinnerFrom)
+                intent.putExtra("spinnerTarget", spinnerTarget)
+                intent.putExtra("teks", text.text.toString())
+                startActivity(intent)
+            }
             R.id.main_swap_lang -> {
                 val spinerFrom: Spinner = findViewById(R.id.main_spinner_langfrom)
                 val spinnerTarget: Spinner = findViewById(R.id.main_spinner_langto)
@@ -58,7 +70,7 @@ class MainActivity : Activity(), View.OnClickListener {
         for(data in lang.data.languages) {
             spinnerTargetValue.add(data.language.toString())
         }
-        val adapter1 = ArrayAdapter(this, R.layout.spinner_item, spinnerValue)
+        val adapter1 = ArrayAdapter(this, R.layout.spinner_item, spinnerTargetValue)
         val adapter2 = ArrayAdapter(this, R.layout.spinner_item, spinnerTargetValue)
         spinner.adapter = adapter1
         spinnerTarget.adapter = adapter2
@@ -71,7 +83,7 @@ class MainActivity : Activity(), View.OnClickListener {
     }
 
     fun GetSpinnerTarget(): String {
-        val spinner: Spinner = findViewById(R.id.main_spinner_langfrom)
+        val spinner: Spinner = findViewById(R.id.main_spinner_langto)
         return spinner.getItemAtPosition(spinner.selectedItemPosition).toString()
     }
 

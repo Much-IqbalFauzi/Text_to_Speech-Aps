@@ -12,7 +12,7 @@ class ParseInputLang() {
 
     }
 
-    fun getSource(bodyparse: String): String? {
+  /*  fun getSource(bodyparse: String): String? {
         var lang:String?= null
         var url: Url = Url()
         var detect: HTTPHandler = HTTPHandler()
@@ -34,5 +34,5 @@ class ParseInputLang() {
             }
         }
         return lang
-    }
+    }*/
 }

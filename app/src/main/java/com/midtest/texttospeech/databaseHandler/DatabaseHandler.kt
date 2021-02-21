@@ -13,7 +13,7 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(context, DATABASE_NAME
         private val DATABASE_VERSION = 1
         private val DATABASE_NAME = "Database_Translate"
         private val TABLE_NAME = "Translate_History"
-        private val key_id = "id"
+        private val key_id = "_id"
         private val key_bahasa = "bahasa"
         private val key_kalimat = "kalimat"
         private val key_bahasatujuan = "bahasatujuan"
@@ -64,12 +64,15 @@ class DatabaseHandler(context: Context): SQLiteOpenHelper(context, DATABASE_NAME
         if(cursor.moveToFirst()){
             do{
                 val translateId: Int = cursor.getInt(cursor.getColumnIndex("_id"))
-                val translatebahasa: String = cursor.getString(cursor.getColumnIndex("bahasa"))
-                val translatekalimat: String = cursor.getString(cursor.getColumnIndex("kalimat"))
-                val translatebahasatujuan: String = cursor.getString(cursor.getColumnIndex("bahasatujuan"))
-                val translatekalimathasil: String = cursor.getString(cursor.getColumnIndex("kalimathasil"))
-                val temptranslate = History(id=translateId,bahasa=translatebahasa,kalimat = translatekalimat,bahasatujuan = translatebahasatujuan,kalimathasil = translatekalimathasil)
-                empTranslate.add(temptranslate)
+                val translateBahasa: String = cursor.getString(cursor.getColumnIndex("bahasa"))
+                val translateKalimat: String = cursor.getString(cursor.getColumnIndex("kalimat"))
+                val translateBahasaTujuan: String = cursor.getString(cursor.getColumnIndex("bahasatujuan"))
+                val translateKalimatHasil: String = cursor.getString(cursor.getColumnIndex("kalimathasil"))
+                val tempTranslate = History(
+                    id=translateId,
+                    bahasa=translateBahasa,kalimat=translateKalimat,
+                    bahasatujuan=translateBahasaTujuan,kalimathasil=translateKalimatHasil)
+                empTranslate.add(tempTranslate)
             }while (cursor.moveToNext())
         }
         return empTranslate
