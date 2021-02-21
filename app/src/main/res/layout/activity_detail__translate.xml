@@ -52,10 +52,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center">
-                <ImageView
-                    android:layout_width="@dimen/space_24"
-                    android:layout_height="@dimen/space_24"
-                    android:src="@drawable/ic_volume"
+                <Button
+                    android:id="@+id/detail_from_speak"
+                    android:layout_width="@dimen/size_35"
+                    android:layout_height="@dimen/size_35"
+                    android:background="@drawable/ic_volume"
                     android:paddingLeft="@dimen/space_10"/>
                 <TextView
                     android:id="@+id/detail_from_lang"
@@ -87,10 +88,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center">
-                <ImageView
-                    android:layout_width="@dimen/space_24"
-                    android:layout_height="@dimen/space_24"
-                    android:src="@drawable/ic_volume"
+                <Button
+                    android:id="@+id/detail_target_speak"
+                    android:layout_width="@dimen/size_35"
+                    android:layout_height="@dimen/size_35"
+                    android:background="@drawable/ic_volume"
                     android:paddingLeft="@dimen/space_10"/>
                 <TextView
                     android:id="@+id/detail_target_lang"

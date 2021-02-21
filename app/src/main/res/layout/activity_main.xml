@@ -68,7 +68,6 @@
             android:padding="@dimen/space_10"
             android:background="@drawable/rounded_white"
             android:textSize="@dimen/text_16"
-
             android:inputType="textMultiLine"
             android:scrollbars="vertical"
             android:textColor="@color/nyctophile"
